@@ -12,6 +12,7 @@ import java.util.List;
 
 public class TodoDAO {
 
+    // 첫 번째 코드
     public String getTime() {
 
         String now = null;
@@ -37,6 +38,7 @@ public class TodoDAO {
 
     }
 
+    // 훨씬 더 깔끔하고 유용한 코드 ( @Cleanup 어노테이션을 사용해서 close를 보장함. )
     public String getTime2() throws Exception {
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -78,6 +80,7 @@ public class TodoDAO {
         List<TodoVO> list = new ArrayList<>();
 
         while (resultSet.next()) {
+
             TodoVO vo = TodoVO.builder()
                     .tno(resultSet.getLong("tno"))
                     .title(resultSet.getString("title"))
@@ -86,6 +89,7 @@ public class TodoDAO {
                     .build();
 
             list.add(vo);
+
         }
 
         return list;
@@ -140,7 +144,6 @@ public class TodoDAO {
         preparedStatement.setDate(2, Date.valueOf(todoVO.getDueDate()));
         preparedStatement.setBoolean(3, todoVO.isFinished());
         preparedStatement.setLong(4, todoVO.getTno());
-
 
         preparedStatement.executeUpdate();
 
