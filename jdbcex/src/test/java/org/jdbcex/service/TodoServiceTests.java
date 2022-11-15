@@ -27,6 +27,7 @@ public class TodoServiceTests {
                 .build();
 
         todoService.register(todoDTO);
+
     }
 
 }

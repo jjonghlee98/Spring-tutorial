@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TodoDAOTests {
 
-    TodoDAO todoDAO;
+    private TodoDAO todoDAO;
 
     @BeforeEach
     public void ready() {
