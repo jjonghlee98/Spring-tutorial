@@ -7,8 +7,8 @@ import java.time.LocalDate;
 @Getter
 @Builder
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class TodoVO {
 
     private Long tno;

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class TodoDAO {
 
-    // 첫 번째 코드
     public String getTime() {
 
         String now = null;
@@ -38,11 +37,12 @@ public class TodoDAO {
 
     }
 
-    // 훨씬 더 깔끔하고 유용한 코드 ( @Cleanup 어노테이션을 사용해서 close를 보장함. )
     public String getTime2() throws Exception {
 
+        String sql = "select now()";
+
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement("select now()");
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
         resultSet.next();
@@ -53,7 +53,7 @@ public class TodoDAO {
 
     }
 
-    public void insert(TodoVO vo) throws Exception {
+     public void insert(TodoVO vo) throws Exception {
 
         String sql = "insert into tbl_todo (title, dueDate, finished) values (?, ?, ?)";
 
@@ -133,19 +133,20 @@ public class TodoDAO {
 
     }
 
-    public void updateOne(TodoVO todoVO) throws Exception {
+    public void updateOne(TodoVO vo) throws Exception {
 
         String sql = "update tbl_todo set title=?, dueDate=?, finished=? where tno = ?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        preparedStatement.setString(1, todoVO.getTitle());
-        preparedStatement.setDate(2, Date.valueOf(todoVO.getDueDate()));
-        preparedStatement.setBoolean(3, todoVO.isFinished());
-        preparedStatement.setLong(4, todoVO.getTno());
+        preparedStatement.setString(1, vo.getTitle());
+        preparedStatement.setDate(2, Date.valueOf(vo.getDueDate()));
+        preparedStatement.setBoolean(3, vo.isFinished());
+        preparedStatement.setLong(4, vo.getTno());
 
         preparedStatement.executeUpdate();
 
     }
+
 }

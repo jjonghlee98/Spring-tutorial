@@ -1,5 +1,6 @@
 package org.jdbcex.service;
 
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.zerock.jdbcex.dto.TodoDTO;
@@ -7,6 +8,7 @@ import org.zerock.jdbcex.service.TodoService;
 
 import java.time.LocalDate;
 
+@Log4j2
 public class TodoServiceTests {
 
     private TodoService todoService;
@@ -19,14 +21,17 @@ public class TodoServiceTests {
     }
 
     @Test
-    public void testRegister() throws Exception {
+    public void register() throws Exception {
 
-        TodoDTO todoDTO = TodoDTO.builder()
+        TodoDTO dto = TodoDTO.builder()
                 .title("JDBC Test Title")
                 .dueDate(LocalDate.now())
                 .build();
 
-        todoService.register(todoDTO);
+        log.info("----------------------------------------------------------------------------");
+        log.info(dto);
+
+        todoService.register(dto);
 
     }
 

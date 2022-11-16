@@ -20,7 +20,14 @@ public class TodoDAOTests {
     }
 
     @Test
-    public void testTime() throws Exception {
+    public void testGetTime() throws Exception {
+
+        System.out.println(todoDAO.getTime());
+
+    }
+
+    @Test
+    public void testGetTime2() throws Exception {
 
         System.out.println(todoDAO.getTime2());
 
@@ -29,12 +36,14 @@ public class TodoDAOTests {
     @Test
     public void testInsert() throws Exception {
 
-        TodoVO todoVO = TodoVO.builder()
-                .title("Sample Title...")
-                .dueDate(LocalDate.of(2022, 11, 12))
+        TodoVO vo = TodoVO.builder()
+                .title("Sample...Todo")
+                .dueDate(LocalDate.now())
                 .build();
 
-        todoDAO.insert(todoVO);
+        System.out.println(vo);
+
+        todoDAO.insert(vo);
 
     }
 
@@ -50,7 +59,7 @@ public class TodoDAOTests {
     @Test
     public void testSelectOne() throws Exception {
 
-        Long tno = 1L;
+        Long tno = 3L;
 
         TodoVO vo = todoDAO.selectOne(tno);
 
@@ -61,17 +70,14 @@ public class TodoDAOTests {
     @Test
     public void testUpdateOne() throws Exception {
 
-        Long tno = 1L;
-
-        TodoVO todoVO = TodoVO.builder()
-                .tno(tno)
-                .title("Sample...Todo")
-                .dueDate(LocalDate.of(2022, 12, 25))
+        TodoVO vo = TodoVO.builder()
+                .tno((long) 1)
+                .title("Update Todo")
+                .dueDate(LocalDate.now())
                 .finished(true)
                 .build();
 
-
-        todoDAO.updateOne(todoVO);
+        todoDAO.updateOne(vo);
 
     }
 
