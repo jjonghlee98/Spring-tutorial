@@ -9,13 +9,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>List</title>
 </head>
 <body>
 <h1>Todo List</h1>
 
 <ul>
-    <c:forEach var="dto" items="${dtoList}">
+    <c:forEach var="dto" items="${dto}">
         <li>
             <span><a href="/todo/read?tno=${dto.tno}">${dto.tno}</a></span>
             <span>${dto.title}</span>

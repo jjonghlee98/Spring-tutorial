@@ -21,12 +21,10 @@ public class TodoListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        log.info("/todo/list");
-
         try {
 
-            List<TodoDTO> dtoList = todoService.listAll();
-            req.setAttribute("dtoList", dtoList);
+            List<TodoDTO> dto = todoService.listAll();
+            req.setAttribute("dto", dto);
             req.getRequestDispatcher("/WEB-INF/todo/list.jsp").forward(req, resp);
 
         } catch (Exception e) {

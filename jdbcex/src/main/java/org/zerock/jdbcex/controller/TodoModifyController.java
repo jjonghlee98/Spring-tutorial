@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet(name = "todoRegisterController", value = "/todo/register")
+@WebServlet(name = "todoModifyController", value = "/todo/modify")
 @Log4j2
-public class TodoRegisterController extends HttpServlet {
+public class TodoModifyController extends HttpServlet {
 
     private TodoService todoService = TodoService.INSTANCE;
 
@@ -24,26 +24,41 @@ public class TodoRegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        log.info("/todo/register");
+        try {
 
-        req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
+            Long tno = Long.parseLong(req.getParameter("tno"));
+            TodoDTO todoDTO = todoService.read(tno);
 
+            req.setAttribute("todoDTO", todoDTO);
+            req.getRequestDispatcher("/WEB-INF/todo/modify.jsp").forward(req, resp);
+
+        } catch (Exception e) {
+
+            log.error(e.getMessage());
+            throw new ServletException("modify get .... error");
+
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        log.info("/todo/modify");
+
+        String finishedStr = req.getParameter("finished");
+
         TodoDTO todoDTO = TodoDTO.builder()
+                .tno(Long.parseLong(req.getParameter("tno")))
                 .title(req.getParameter("title"))
-                .dueDate(LocalDate.parse(req.getParameter("dueDate")))
+                .dueDate(LocalDate.parse(req.getParameter("dueDate"), DATEFORMATTER))
+                .finished(finishedStr != null && finishedStr.equals("on"))
                 .build();
 
-        log.info("/todo/register....POST");
         log.info(todoDTO);
 
         try {
 
-            todoService.register(todoDTO);
+            todoService.modify(todoDTO);
 
         } catch (Exception e) {
 

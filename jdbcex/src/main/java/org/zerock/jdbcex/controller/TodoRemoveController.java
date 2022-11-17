@@ -6,27 +6,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import org.zerock.jdbcex.dto.TodoDTO;
 import org.zerock.jdbcex.service.TodoService;
 
 import java.io.IOException;
 
-@WebServlet(name = "todoReadController", value = "/todo/read")
+@WebServlet(name = "todoRemoveController", value = "/todo/remove")
 @Log4j2
-public class TodoReadController extends HttpServlet {
+public class TodoRemoveController extends HttpServlet {
 
     private TodoService todoService = TodoService.INSTANCE;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        Long tno = Long.parseLong(req.getParameter("tno"));
+        log.info(tno);
 
         try {
 
-            Long tno = Long.parseLong(req.getParameter("tno"));
-            TodoDTO dto = todoService.read(tno);
-            req.setAttribute("dto", dto);
-            req.getRequestDispatcher("/WEB-INF/todo/read.jsp").forward(req, resp);
+            todoService.remove(tno);
 
         } catch (Exception e) {
 
@@ -34,6 +32,7 @@ public class TodoReadController extends HttpServlet {
             throw new ServletException("read error");
 
         }
+        resp.sendRedirect("/todo/list");
 
     }
 }

@@ -28,9 +28,11 @@ public enum TodoService {
 
     public void register(TodoDTO todoDTO) throws Exception {
 
-        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        TodoVO vo = modelMapper.map(todoDTO, TodoVO.class);
 
-        dao.insert(todoVO);
+        log.info(vo);
+
+        dao.insert(vo);
 
     }
 
@@ -38,7 +40,7 @@ public enum TodoService {
 
         List<TodoVO> voList = dao.selectAll();
 
-        log.info("TodoVO: " + voList);
+        log.info(voList);
 
         List<TodoDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, TodoDTO.class))
@@ -48,13 +50,33 @@ public enum TodoService {
 
     }
 
-    public TodoDTO get(Long tno) throws Exception {
+    public TodoDTO read(Long tno) throws Exception {
 
-        log.info("tno: " + tno);
+        TodoVO vo = dao.selectOne(tno);
 
-        TodoVO todoVO = dao.selectOne(tno);
-        TodoDTO todoDTO = modelMapper.map(todoVO, TodoDTO.class);
-        return todoDTO;
+        log.info(vo);
+
+        TodoDTO dto = modelMapper.map(vo, TodoDTO.class);
+
+        return dto;
+
+    }
+
+    public void remove(Long tno) throws Exception {
+
+        log.info("----- delete -----");
+
+        dao.deleteOne(tno);
+
+    }
+
+    public void modify(TodoDTO todoDTO) throws Exception {
+
+        TodoVO vo = modelMapper.map(todoDTO, TodoVO.class);
+
+        log.info(vo);
+
+        dao.updateOne(vo);
 
     }
 

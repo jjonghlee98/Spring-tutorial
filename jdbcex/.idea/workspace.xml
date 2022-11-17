@@ -51,8 +51,8 @@
       <list>
         <option value="Enum" />
         <option value="Tag Library Descriptor" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -339,7 +339,9 @@
       <workItem from="1668582464150" duration="5038000" />
       <workItem from="1668587545925" duration="672000" />
       <workItem from="1668588269545" duration="10000" />
-      <workItem from="1668588298721" duration="2835000" />
+      <workItem from="1668588298721" duration="2867000" />
+      <workItem from="1668591182615" duration="12000" />
+      <workItem from="1668646495961" duration="6510000" />
     </task>
     <servers />
   </component>

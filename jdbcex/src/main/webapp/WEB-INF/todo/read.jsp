@@ -12,19 +12,19 @@
 </head>
 <body>
 <div>
-    <input type="text" name="tno" value="${todoDTO.tno}">
+    <input type="text" name="tno" value="${dto.tno}">
 </div>
 <div>
-    <input type="text" name="title" value="${todoDTO.title}">
+    <input type="text" name="title" value="${dto.title}">
 </div>
 <div>
-    <input type="date" name="dueDate" value="${todoDTO.dueDate}">
+    <input type="date" name="dueDate" value="${dto.dueDate}">
 </div>
 <div>
-    <input type="checkbox" name="finished" ${todoDTO.finished ? "checked" : ""} readonly>
+    <input type="checkbox" name="finished" ${dto.finished ? "checked" : ""} disabled>
 </div>
 <div>
-    <a href="/todo/modify?tno=${todoDTO.tno}">Modify/Remove</a>
+    <a href="/todo/modify?tno=${dto.tno}">Modify/Remove</a>
     <a href="/todo/list">List</a>
 </div>
 </body>
