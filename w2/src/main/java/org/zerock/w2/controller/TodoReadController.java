@@ -35,7 +35,7 @@ public class TodoReadController extends HttpServlet {
                 exist = true;
             }
 
-            log.info(exist);
+            log.info("exist: " + exist);
 
             if (!exist) {
                 todoListStr += tno + "-";
@@ -61,7 +61,7 @@ public class TodoReadController extends HttpServlet {
 
         Cookie targetCookie = null;
 
-        if (targetCookie != null && cookies.length > 0) {
+        if (cookies != null && cookies.length > 0) {
             for (Cookie ck : cookies) {
                 if (ck.getName().equals(cookieName)) {
                     targetCookie = ck;

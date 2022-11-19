@@ -17,4 +17,6 @@ public class MemberDTO {
 
     private String mname;
 
+    private String uuid;
+
 }

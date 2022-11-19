@@ -15,4 +15,6 @@ public class MemberVO {
 
     private String mname;
 
+    private String uuid;
+
 }
